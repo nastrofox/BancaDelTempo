@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+
 
 namespace BancaDelTempo._1
 {
@@ -45,7 +47,25 @@ namespace BancaDelTempo._1
                 textBox4.Text = "";
             }
             Utente nuovo = new Utente(a, b, c, checkBox1.Checked, d, 0);
+            SalvaUtenteSuFileJson(nuovo);
+            this.Hide();
 
+        }
+        private void SalvaUtenteSuFileJson(Utente utente)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                TypeNameHandling = TypeNameHandling.Auto
+            };
+
+            string jsonUtente = JsonConvert.SerializeObject(utente, settings);
+
+            string percorsoFile = "utente.json";
+
+            System.IO.File.WriteAllText(percorsoFile, jsonUtente);
+
+            MessageBox.Show("Utente salvato con successo!");
         }
     }
 }

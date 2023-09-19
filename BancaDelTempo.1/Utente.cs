@@ -12,13 +12,9 @@ namespace BancaDelTempo._1
         public bool Segreteria { get; set; }
         public string Lavoro { get; set; } 
         public int OreTotali { get; set; }
-        public List<string> PrestazioniOfferte { get; set; }
-        public List<string> PrestazioniRicevute { get; set; }
 
         public Utente()
         {
-            PrestazioniOfferte = new List<string>();
-            PrestazioniRicevute = new List<string>();
         }
 
         public Utente(string cognome, string nome, string telefono, bool segreteria, string lavoro, int oreTotali)
@@ -29,8 +25,6 @@ namespace BancaDelTempo._1
             Segreteria = segreteria;
             Lavoro = lavoro;
             OreTotali = 0;
-            PrestazioniOfferte = new List<string>();
-            PrestazioniRicevute = new List<string>();
         }
 
         public override string ToString()
