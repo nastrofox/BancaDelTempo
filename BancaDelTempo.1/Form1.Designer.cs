@@ -36,8 +36,6 @@ namespace BancaDelTempo._1
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.Cognome = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Nome = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // label1
@@ -101,13 +99,10 @@ namespace BancaDelTempo._1
             // 
             // listView1
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Cognome,
-            this.Nome});
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(223, 41);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(435, 403);
+            this.listView1.Size = new System.Drawing.Size(590, 403);
             this.listView1.TabIndex = 8;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -115,7 +110,7 @@ namespace BancaDelTempo._1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(670, 503);
+            this.ClientSize = new System.Drawing.Size(825, 503);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -125,6 +120,7 @@ namespace BancaDelTempo._1
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -139,8 +135,6 @@ namespace BancaDelTempo._1
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader Cognome;
-        private System.Windows.Forms.ColumnHeader Nome;
     }
 }
 

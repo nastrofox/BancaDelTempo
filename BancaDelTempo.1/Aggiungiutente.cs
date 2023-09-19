@@ -49,6 +49,9 @@ namespace BancaDelTempo._1
             Utente nuovo = new Utente(a, b, c, checkBox1.Checked, d, 0);
             SalvaUtenteSuFileJson(nuovo);
             this.Hide();
+            Form1 ag = new Form1();
+            ag.ShowDialog();
+            this.Close();
 
         }
         private void SalvaUtenteSuFileJson(Utente utente)
