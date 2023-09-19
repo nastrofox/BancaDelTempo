@@ -14,9 +14,14 @@ namespace BancaDelTempo._1
 {
     public partial class Aggiungiutente : Form
     {
-        public Aggiungiutente()
+        private List<Utente> nuovalista = new List<Utente>();
+        public Aggiungiutente(List<Utente> lista)
         {
             InitializeComponent();
+            if(lista != null)
+            {
+                nuovalista = lista;
+            }
         }
         
         private void button1_Click(object sender, EventArgs e)
@@ -26,49 +31,51 @@ namespace BancaDelTempo._1
             string c = textBox3.Text;
             string d = textBox4.Text;
             // Verifica se il testo contiene caratteri diversi da lettere
-            if (!System.Text.RegularExpressions.Regex.IsMatch(textBox1.Text, "^[a-zA-Z]+$"))
+            if (string.IsNullOrEmpty(textBox1.Text))
             {
-                MessageBox.Show("Inserire solo lettere.");
-                textBox1.Text = "";
+                MessageBox.Show("Inserire il cognome.");
             }
-            if (!System.Text.RegularExpressions.Regex.IsMatch(textBox2.Text, "^[a-zA-Z]+$"))
+            else if (string.IsNullOrEmpty(textBox2.Text))
             {
-                MessageBox.Show("Inserire solo lettere.");
-                textBox2.Text = "";
+                MessageBox.Show("Inserire il nome.");
             }
-            if (!System.Text.RegularExpressions.Regex.IsMatch(textBox3.Text, "^[0-9]+$"))
+            else if (string.IsNullOrEmpty(textBox3.Text))
             {
-                MessageBox.Show("Inserire solo numeri.");
-                textBox3.Text = "";
+                MessageBox.Show("Inserire il numero di telefono.");
             }
-            if (!System.Text.RegularExpressions.Regex.IsMatch(textBox4.Text, "^[a-zA-Z]+$"))
+            else if (string.IsNullOrEmpty(textBox4.Text))
             {
-                MessageBox.Show("Inserire solo lettere.");
-                textBox4.Text = "";
+                MessageBox.Show("Inserire il lavoro.");
             }
-            Utente nuovo = new Utente(a, b, c, checkBox1.Checked, d, 0);
-            SalvaUtenteSuFileJson(nuovo);
-            this.Hide();
-            Form1 ag = new Form1();
-            ag.ShowDialog();
-            this.Close();
+            else
+            {
+                Utente nuovo = new Utente(a, b, c, checkBox1.Checked, d, 0);
+                nuovalista.Add(nuovo);
+                SalvaUtenteSuFileJson(nuovalista);
+                this.Hide();
+                Form1 ag = new Form1();
+                ag.ShowDialog();
+                this.Close();
+            }
+
+            
 
         }
-        private void SalvaUtenteSuFileJson(Utente utente)
+        private void SalvaUtenteSuFileJson(List<Utente> utente)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings
-            {
-                Formatting = Formatting.Indented,
-                TypeNameHandling = TypeNameHandling.Auto
-            };
+            string jsonUtente = JsonConvert.SerializeObject(utente);
 
-            string jsonUtente = JsonConvert.SerializeObject(utente, settings);
-
-            string percorsoFile = "utente.json";
+            string percorsoFile = "./utente.json";
 
             System.IO.File.WriteAllText(percorsoFile, jsonUtente);
 
             MessageBox.Show("Utente salvato con successo!");
+        }
+
+
+        private void Aggiungiutente_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

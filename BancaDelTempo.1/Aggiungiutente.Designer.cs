@@ -177,6 +177,7 @@ namespace BancaDelTempo._1
             this.Controls.Add(this.button1);
             this.Name = "Aggiungiutente";
             this.Text = "Aggiungiutente";
+            this.Load += new System.EventHandler(this.Aggiungiutente_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

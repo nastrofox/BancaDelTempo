@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace BancaDelTempo._1
 {
     [Serializable]
-    class Utente
+    public class Utente
     {
         public string Cognome { get; set; }
         public string Nome { get; set; }

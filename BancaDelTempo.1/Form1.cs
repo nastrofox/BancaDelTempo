@@ -7,22 +7,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.IO;
 
 namespace BancaDelTempo._1
 {
     public partial class Form1 : Form
     {
-        List<Utente> user;
+        private List<Utente> user = new List<Utente>();
         public bool first = true;
         public Form1()
         {
             InitializeComponent();
+            user = CaricaUtentiDaFileJson();
         }
-        
+        private List<Utente> CaricaUtentiDaFileJson()
+        {
+            string percorsoFile = "./utente.json";
+
+            if (System.IO.File.Exists(percorsoFile))
+            {
+                string jsonUtente = System.IO.File.ReadAllText(percorsoFile);
+                List<Utente> listaUtenti = JsonConvert.DeserializeObject<List<Utente>>(jsonUtente);
+                return listaUtenti;
+            }
+            else
+            {
+                return new List<Utente>();
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Aggiungiutente ag = new Aggiungiutente();
+            Aggiungiutente ag = new Aggiungiutente(user);
             ag.ShowDialog();
             this.Close();
         }
@@ -52,7 +70,8 @@ namespace BancaDelTempo._1
         }
         public void fillist()
         {
-            ListViewItem campi;
+
+            ListViewItem campi = new ListViewItem();
 
             for (int i = 0; i < user.Count; i++)
             {
@@ -64,11 +83,18 @@ namespace BancaDelTempo._1
                 campi.SubItems.Add(user[i].Lavoro);
                 campi.SubItems.Add(Convert.ToString(user[i].OreTotali));
                 listView1.Items.Add(campi);
-                campi.BackColor = Color.LimeGreen;
             }
         }
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            string filename = @"./utente.json" ;
+            string jsonData;
+            StreamReader sr = new StreamReader(filename);
+            jsonData=sr.ReadToEnd();
+            sr.Close();
+            user = JsonConvert.DeserializeObject<List<Utente>>(jsonData);
+
             if (first)//only the first time 
             {
                 listView1.View = View.Details;
@@ -83,6 +109,11 @@ namespace BancaDelTempo._1
                 listView1.Columns.Add("ORE TOTALI", 100);
 
             }
+            if (user != null && user.Count > 0)
+            {
+                fillist();
+            }
+
         }
     }
 }
