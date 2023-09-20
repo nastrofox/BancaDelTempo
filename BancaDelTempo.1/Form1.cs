@@ -15,7 +15,7 @@ namespace BancaDelTempo._1
 {
     public partial class Form1 : Form
     {
-        private List<Utente> user = new List<Utente>();
+        public static List<Utente> user = new List<Utente>();
         public bool first = true;
         public Form1()
         {
@@ -37,6 +37,14 @@ namespace BancaDelTempo._1
                 return new List<Utente>();
             }
         }
+        public void AggiornaListView()
+        {
+            listView1.Items.Clear();
+
+            fillist(user);
+        }
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -47,12 +55,44 @@ namespace BancaDelTempo._1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Modificautente ag = new Modificautente();
-            ag.ShowDialog();
-            this.Close();
+            RimuoviUtenteDaListView();
+        }
+        private void RimuoviUtenteDaListView()
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                string nome = listView1.SelectedItems[0].SubItems[1].Text;
+                string cognome = listView1.SelectedItems[0].SubItems[0].Text;
+
+                RimuoviUtenteDaFileJson(nome, cognome);
+            }
+            else
+            {
+                MessageBox.Show("Seleziona un utente da rimuovere.");
+            }
         }
 
+        public void RimuoviUtenteDaFileJson(string nome, string cognome)
+        {
+            List<Utente> listaAttuale = CaricaUtentiDaFileJson();
+            Utente utenteDaRimuovere = listaAttuale.Find(u => u.Nome == nome && u.Cognome == cognome);
+
+            if (utenteDaRimuovere != null)
+            {
+                listaAttuale.Remove(utenteDaRimuovere);
+
+                string jsonUtente = JsonConvert.SerializeObject(listaAttuale);
+                string percorsoFile = "./utente.json";
+                System.IO.File.WriteAllText(percorsoFile, jsonUtente);
+
+                MessageBox.Show("Utente rimosso con successo!");
+                AggiornaListView();
+            }
+            else
+            {
+                MessageBox.Show("Utente non trovato nel file JSON.");
+            }
+        }
         private void button3_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -63,29 +103,44 @@ namespace BancaDelTempo._1
 
         private void button4_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            visualizzasoci ag = new visualizzasoci();
-            ag.ShowDialog();
-            this.Close();
+            MostraUtentiOreNegative();
         }
-        public void fillist()
+        public static void MostraUtentiOreNegative()
         {
+            var utentiOreNegative = user.Where(u => u.OreTotali < 0);
 
+            if (utentiOreNegative.Any())
+            {
+                string message = "Utenti con ore totali inferiori a 0:\n\n";
+
+                foreach (var utente in utentiOreNegative)
+                {
+                    message += $"{utente.Nome} {utente.Cognome} - Ore Totali: {utente.OreTotali}\n";
+                }
+
+                MessageBox.Show(message, "Utenti con ore negative");
+            }
+            else
+            {
+                MessageBox.Show("Nessun utente con ore totali inferiori a 0.", "Utenti con ore negative");
+            }
+        }
+        public void fillist(List<Utente> userList)
+        {
+            listView1.Items.Clear();
             ListViewItem campi = new ListViewItem();
 
-            for (int i = 0; i < user.Count; i++)
+            for (int i = 0; i < userList.Count; i++)
             {
-
-                campi = new ListViewItem(user[i].Cognome);
-                campi.SubItems.Add(user[i].Nome);
-                campi.SubItems.Add(user[i].Telefono);
-                campi.SubItems.Add(Convert.ToString(user[i].Segreteria));
-                campi.SubItems.Add(user[i].Lavoro);
-                campi.SubItems.Add(Convert.ToString(user[i].OreTotali));
+                campi = new ListViewItem(userList[i].Cognome);
+                campi.SubItems.Add(userList[i].Nome);
+                campi.SubItems.Add(userList[i].Telefono);
+                campi.SubItems.Add(Convert.ToString(userList[i].Segreteria));
+                campi.SubItems.Add(userList[i].Lavoro);
+                campi.SubItems.Add(Convert.ToString(userList[i].OreTotali));
                 listView1.Items.Add(campi);
             }
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             string filename = @"./utente.json" ;
@@ -111,7 +166,7 @@ namespace BancaDelTempo._1
             }
             if (user != null && user.Count > 0)
             {
-                fillist();
+                fillist(user);
             }
 
         }

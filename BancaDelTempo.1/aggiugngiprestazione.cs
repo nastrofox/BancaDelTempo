@@ -16,5 +16,18 @@ namespace BancaDelTempo._1
         {
             InitializeComponent();
         }
+
+        private void aggiugngiprestazione_Load(object sender, EventArgs e)
+        {
+
+        }
+        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string tipo = textBox1.Text;
+            string data = textBox5.Text;
+            float ore = Convert.ToInt32(textBox3.Text);
+
+        }
     }
 }

@@ -59,9 +59,9 @@ namespace BancaDelTempo._1
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(22, 79);
+            this.button1.Location = new System.Drawing.Point(40, 79);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(114, 38);
+            this.button1.Size = new System.Drawing.Size(131, 68);
             this.button1.TabIndex = 4;
             this.button1.Text = "Aggiungi utente";
             this.button1.UseVisualStyleBackColor = true;
@@ -69,19 +69,19 @@ namespace BancaDelTempo._1
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(22, 123);
+            this.button2.Location = new System.Drawing.Point(40, 163);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(114, 38);
+            this.button2.Size = new System.Drawing.Size(131, 68);
             this.button2.TabIndex = 5;
-            this.button2.Text = "Modifica utente";
+            this.button2.Text = "Elimina utente";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(22, 167);
+            this.button3.Location = new System.Drawing.Point(40, 246);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(114, 38);
+            this.button3.Size = new System.Drawing.Size(131, 68);
             this.button3.TabIndex = 6;
             this.button3.Text = "Aggiungi prestazione";
             this.button3.UseVisualStyleBackColor = true;
@@ -89,9 +89,9 @@ namespace BancaDelTempo._1
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(22, 211);
+            this.button4.Location = new System.Drawing.Point(40, 334);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(114, 38);
+            this.button4.Size = new System.Drawing.Size(131, 68);
             this.button4.TabIndex = 7;
             this.button4.Text = "Visualizza soci";
             this.button4.UseVisualStyleBackColor = true;

@@ -13,14 +13,14 @@ namespace BancaDelTempo._1
         public string ErogataDa { get; set; }
         public string RicevutaDa { get; set; }
         public int Ore { get; set; }
-        public DateTime Data { get; set; }
+        public string Data { get; set; }
 
         public Prestazione()
         {
 
         }
 
-        public Prestazione(string tipo, string erogataDa, string ricevutaDa, int ore, DateTime data)
+        public Prestazione(string tipo, string erogataDa, string ricevutaDa, int ore, string data)
         {
             Tipo = tipo;
             ErogataDa = erogataDa;
